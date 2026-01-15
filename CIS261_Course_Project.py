@@ -3,7 +3,7 @@
 
 def get_employee_name():
     """Prompt the user for an employee name and return it."""
-    name = input("Enter employee name (or 'End' to finish): ")
+    name = input("\nEnter employee name (or 'End' to finish): ")
     return name
 
 def get_total_hours():
@@ -29,26 +29,67 @@ def calculate_pay(hours, rate, tax_rate):
     return gross_pay, income_tax, net_pay
 
 def display_employee(name, hours, rate, gross_pay, tax_rate, income_tax, net_pay):
+    """Display one employee's payroll results."""
     print("\n--- Employee Payroll ---")
-    print(f"Name: {name}")
-    print(f"Hours Worked: {hours}")
+    print(f"Emplyee Name: {name}")
+    print(f"Total Hours Worked: {hours}")
     print(f"Hourly Rate: {rate}")
     print(f"Gross Pay: {gross_pay}")
-    print(f"Tax Rate: {tax_rate}")
-    print(f"Income Tax: {income_tax}")
+    print(f"Income Tax Rate: {tax_rate}")
+    print(f"Income Taxes: {income_tax}")
     print(f"Net Pay: {net_pay}")
 
-def display_totals(employee_count, total_hours, total_gross, total_tax, total_net):
+def display_totals(employee_count, total_hours, total_gross_pay, total_income_taxes, total_net_pay):
+    """Display totals for all employess after the loop ends."""
     print("\n--- Payroll Totals ---")
-    print(f"Total Employees: {employee_count}")
-    print(f"Total Hours: {total_hours}")
-    print(f"Total Gross Pay: {total_gross}")
-    print(f"Total Income Taxes: {total_tax}")
-    print(f"Total Net Pay: {total_net}")
+    print(f"Total Number of Employees: {employee_count}")
+    print(f"Total Hours Worked: {total_hours}")
+    print(f"Total Gross Pay: {total_gross_pay}")
+    print(f"Total Income Taxes: {total_income_taxes}")
+    print(f"Total Net Pay: {total_net_pay}")
 
 # Main Program Loop
 
 if __name__ == "__main__":
+    
+    #running totals
     employee_count = 0
+    total_hours = 0.0
+    total_gross_pay = 0.0
+    total_income_taxes = 0.0
+    total_net_pay = 0.0
+
+    while True:
+        name = get_employee_name()
+
+        # Stop Condition
+        if name == "End":
+            break
+
+        # Input Functions
+        hours = get_total_hours()
+        rate = get_hourly_rate()
+        tax_rate = get_tax_rate()
+
+        # Calculate function (parameters in, values returned)
+        gross_pay, income_tax, net_pay = calculate_pay(hours, rate, tax_rate)
+
+        # Display employee results
+        display_employee(name, hours, rate, gross_pay, tax_rate, income_tax, net_pay)
+
+        # Update Totals
+        employee_count += 1
+        total_hours += hours
+        total_gross_pay += gross_pay
+        total_income_taxes += income_tax
+        total_net_pay += net_pay
+
+        # Display totals after all employees entered
+        display_totals(employee_count, total_hours, total_gross_pay, total_income_taxes, total_net_pay)
+
+
+
+
+
 
 
