@@ -86,8 +86,8 @@ if __name__ == "__main__":
         total_income_taxes += income_tax
         total_net_pay += net_pay
 
-        # Display totals after all employees entered
-        display_totals(employee_count, total_hours, total_gross_pay, total_income_taxes, total_net_pay)
+    # Display totals after all employees entered
+    display_totals(employee_count, total_hours, total_gross_pay, total_income_taxes, total_net_pay)
 
 
 
