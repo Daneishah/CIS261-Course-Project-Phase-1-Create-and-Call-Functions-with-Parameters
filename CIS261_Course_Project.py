@@ -1,7 +1,14 @@
 
 
 # Daneisha Hunt CIS261 Create and Call Functions with Parameters
-# Payroll Proof of concept
+# Payroll Program using lists and dictionaries
+
+def get_pay_period_dates():
+    """This Function is added per Phase 2 - this function asks for the pay period dates and returns both values.
+    The assignment requires this to be the first function called in the loop."""
+    from_date = input("\nEnter FROM date (mm/dd/yyyy): ")
+    to_date = input("Enter TO date (mm/dd/yyyy): ")
+    return from_date, to_date
 
 def get_employee_name():
     """Prompt the user for an employee name and return it."""
@@ -9,7 +16,7 @@ def get_employee_name():
     return name
 
 def get_total_hours():
-    """Prompt the user for total hours worked and return it as a float."""
+    """Prompt the user for total hours worked and return it as a float. This allows decimal values"""
     hours = float(input("Enter total hours worked: "))
     return hours
 
