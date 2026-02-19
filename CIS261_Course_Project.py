@@ -133,9 +133,9 @@ def is_valid_date_mmddyyyy(date_text):
 
 def get_report_from_date():
     while True:
-        user_input = input("\nEnter From date for report (mm/dd/yyyy) or All: ")
-        if user_input.upper() == "ALL":
-            return user_input
+        user_input = input("\nEnter From date for report (mm/dd/yyyy) or All: ").strip()
+        if user_input.lower() == "all":
+            return "All"
 
         if is_valid_date_mmddyyyy(user_input):
             return user_input
@@ -149,9 +149,9 @@ def display_records(from_date_filter):
         for line in file:
             data = line.strip().split("|")
 
-            record_from_date = date[0]
+            record_from_date = data[0]
 
-            if from_date_filter.upper() == "ALL" or record_from_date == from_date_filter:
+            if from_date_filter.lower() == "all" or record_from_date == from_date_filter:
                 print(line.strip())
 
 
@@ -191,11 +191,16 @@ def main():
         rates.append(rate)
         tax_rates.append(tax_rate)
 
+        save_employee_record(from_date, to_date, name, hours, rate, tax_rate)
+
     #process payrol after all input
     totals = process_payroll(from_dates, to_dates, names, hours_list, rates, tax_rates)
 
     #Display totals
     display_totals(totals)
+
+    report_from_date = get_report_from_date()
+    display_records(report_from_date)
 
 #start Program
 main()
