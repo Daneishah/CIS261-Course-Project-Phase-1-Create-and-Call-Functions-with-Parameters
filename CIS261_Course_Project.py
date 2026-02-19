@@ -2,6 +2,10 @@
 
 # Daneisha Hunt CIS261 Create and Call Functions with Parameters
 # Payroll Program using lists and dictionaries
+# Using Files to Store and Retrieve Data
+
+file_name = "Employee_data.txt"
+
 
 def get_pay_period_dates():
     """This Function is added per Phase 2 - this function asks for the pay period 
@@ -107,6 +111,49 @@ def process_payroll(from_dates, to_dates, names, hours_list, rates, tax_rates):
         totals["total_net_pay"] += net_pay 
 
     return totals
+
+# phase 3
+
+def save_employee_record(from_date, to_date, name, hours, rate, tax_rate):
+    with open(file_name, "a") as file:
+        record = f"{from_date}|{to_date}|{name}|{hours}|{rate}|{tax_rate}\n"
+        file.write(record)
+
+def is_valid_date_mmddyyyy(date_text):
+    if len(date_text) != 10:
+        return False
+    if date_text[2] != "/" or date_text[5] != "/":
+        return False
+
+    for i in range(10):
+        if i != 2 and i != 5:
+            if not date_text[i].isdigit():
+                return False
+    return True
+
+def get_report_from_date():
+    while True:
+        user_input = input("\nEnter From date for report (mm/dd/yyyy) or All: ")
+        if user_input.upper() == "ALL":
+            return user_input
+
+        if is_valid_date_mmddyyyy(user_input):
+            return user_input
+
+        print("Invalid date format. Please try again.")
+
+def display_records(from_date_filter):
+    print("\nEmployee Records")
+
+    with open(file_name, "r") as file:
+        for line in file:
+            data = line.strip().split("|")
+
+            record_from_date = date[0]
+
+            if from_date_filter.upper() == "ALL" or record_from_date == from_date_filter:
+                print(line.strip())
+
 
 #Main Program
 
