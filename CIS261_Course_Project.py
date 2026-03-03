@@ -290,9 +290,14 @@ def user_view_flow():
 
 def main():
 
-    create_login_records()
+    print("\n1. Create Login Records")
+    print("2. Login")
+    choice = input("Choose an option (1 or 2): ")
 
-    display_login_records()
+    if choice == "1":   
+        create_login_records()
+        display_login_records()
+        return
 
     login_obj = login_process()
     if login_obj is None:
