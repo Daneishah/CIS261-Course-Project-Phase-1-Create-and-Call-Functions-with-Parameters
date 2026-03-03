@@ -54,6 +54,48 @@ def create_login_records():
         user_ids.append(user_id)
         print("User added. \n")
 
+def display_login_records():
+    print("\nLogin Records:")
+
+    file = open(login_file_name, "r")
+    for line in file:
+        print(line.strip())
+    file.close()
+
+def login_process():
+    user_ids = []
+    passwords = 
+    authorizations = []
+
+    file = open(login_file_name, "r")
+    for line in file:
+        line = line.strip()
+        if line != "":
+            parts = line.split("|")
+            user_ids.append(parts[0])
+            passwords.append(parts[1])
+            authorizations.append(parts[2])
+    file.close()
+
+    entered_id = input("Enter user ID: ")
+
+    if entered_id not in user_ids:
+        print("User ID not found.")
+        return None
+    
+    entered_pw = input("Enter password: ")
+
+    index = user_ids.index(entered_id)
+
+    if entered_pw != passwords[index]:
+        print("Incorrect password.")
+        return None
+
+    login_obj = Login(entered_id, entered_pw, authorizations[index])
+    return login_obj
+
+
+
 
 
         
