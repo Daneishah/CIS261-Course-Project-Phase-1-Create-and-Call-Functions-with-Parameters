@@ -5,6 +5,9 @@
 # Using Files to Store and Retrieve Data
 # Course Project Phase 4 - login + Authorization
 
+from tkinter.font import names
+
+
 file_name = "Employee_data.txt"
 login_file_name = "user_login.txt"
 
@@ -64,7 +67,7 @@ def display_login_records():
 
 def login_process():
     user_ids = []
-    passwords = 
+    passwords = []
     authorizations = []
 
     file = open(login_file_name, "r")
@@ -78,7 +81,7 @@ def login_process():
     file.close()
 
     entered_id = input("Enter user ID: ")
-
+    
     if entered_id not in user_ids:
         print("User ID not found.")
         return None
@@ -93,19 +96,8 @@ def login_process():
 
     login_obj = Login(entered_id, entered_pw, authorizations[index])
     return login_obj
-
-
-
-
-
+     
         
-        
-
-
-
-
-
-
 def get_pay_period_dates():
     """This Function is added per Phase 2 - this function asks for the pay period 
     dates and returns both values. The assignment requires this to be the first 
@@ -255,10 +247,10 @@ def display_records(from_date_filter):
 
 
 #Main Program
+# Phase 4 Main Program
 
-def main():
+def admin_payroll_flow():
 
-    #list to store employee data (phase 2 changes)
     from_dates = []
     to_dates = []
     names = []
@@ -266,23 +258,16 @@ def main():
     rates = []
     tax_rates = []
 
-    while True:  #call dates first then store inputs
+    while True:
         from_date, to_date = get_pay_period_dates()
-
         name = get_employee_name()
-
-        # Stop Condition
         if name == "End":
             break
 
-        # Get employee data
         hours = get_total_hours()
         rate = get_hourly_rate()
         tax_rate = get_tax_rate()
 
-        # Store data into lists
-        """.append() is used to store each employee's data into a list 
-        so it can be processed later after the input loop ends."""
         from_dates.append(from_date)
         to_dates.append(to_date)
         names.append(name)
@@ -292,16 +277,38 @@ def main():
 
         save_employee_record(from_date, to_date, name, hours, rate, tax_rate)
 
-    #process payrol after all input
     totals = process_payroll(from_dates, to_dates, names, hours_list, rates, tax_rates)
-
-    #Display totals
     display_totals(totals)
 
     report_from_date = get_report_from_date()
     display_records(report_from_date)
 
-#start Program
+def user_view_flow():
+    report_from_date = get_report_from_date()
+    display_records(report_from_date)
+
+
+def main():
+
+    create_login_records()
+
+    display_login_records()
+
+    login_obj = login_process()
+    if login_obj is None:
+        return
+
+    print("\nLogged in as:")
+    print("User ID:", login_obj.user_id) 
+    print("Password:", login_obj.password)
+    print("Authorization:", login_obj.authorization) 
+    
+    if login_obj.authorization == "Admin":
+        admin_payroll_flow()
+    else:
+        user_view_flow()
+
+  
 main()
 
 
