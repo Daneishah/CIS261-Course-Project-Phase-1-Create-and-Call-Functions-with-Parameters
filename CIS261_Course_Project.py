@@ -3,8 +3,65 @@
 # Daneisha Hunt CIS261 Create and Call Functions with Parameters
 # Payroll Program using lists and dictionaries
 # Using Files to Store and Retrieve Data
+# Course Project Phase 4 - login + Authorization
 
 file_name = "Employee_data.txt"
+login_file_name = "user_login.txt"
+
+# Phase 4 - Login Class
+
+class Login:
+    def __init__(self, user_id, password, authorization):
+        self.user_id = user_id
+        self.password = password    
+        self.authorization = authorization
+
+# Phase 4 - Login file setup + login process
+
+def create_login_records():
+    file = open(login_file_name, "a")
+    file.close()
+
+    user_ids = []
+
+    file = open(login_file_name, "r") 
+    for line in file:
+        line = line.strip()
+        if line != "":
+            parts = line.split("|")
+            user_ids.append(parts[0])
+    file.close()
+
+    while True:
+        user_id = input("Enter user ID (or End to stop): ")
+        if user_id == "End":
+            break
+        if user_id in user_ids:
+            print("User ID already exists. Please choose a different one.")
+            continue
+
+        password = input("Enter password: ")
+        authorization = input("Enter authorization level (Admin or User): ")
+
+        if authorization != "Admin" and authorization != "User":
+            print("Invalid authorization level. Please enter 'Admin' or 'User'.")
+            continue
+
+        file = open(login_file_name, "a")
+        file.write(user_id + "|" + password + "|" + authorization + "\n") 
+        file.close()
+
+        user_ids.append(user_id)
+        print("User added. \n")
+
+
+
+        
+        
+
+
+
+
 
 
 def get_pay_period_dates():
